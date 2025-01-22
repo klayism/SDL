@@ -888,6 +888,10 @@ typedef enum SDL_GPUCubeMapFace
  * Unlike textures, READ | WRITE can be used for simultaneous read-write
  * usage. The same data synchronization concerns as textures apply.
  *
+ * If you use a STORAGE flag, the data in the buffer must respect std140
+ * layout conventions. In practical terms this means you must ensure that vec3
+ * and vec4 fields are 16-byte aligned.
+ *
  * \since This datatype is available since SDL 3.2.0.
  *
  * \sa SDL_CreateGPUBuffer
@@ -2490,6 +2494,10 @@ extern SDL_DECLSPEC SDL_GPUTexture *SDLCALL SDL_CreateGPUTexture(
  * Note that certain combinations of usage flags are invalid. For example, a
  * buffer cannot have both the VERTEX and INDEX flags.
  *
+ * If you use a STORAGE flag, the data in the buffer must respect std140
+ * layout conventions. In practical terms this means you must ensure that vec3
+ * and vec4 fields are 16-byte aligned.
+ *
  * For better understanding of underlying concepts and memory management with
  * SDL GPU API, you may refer
  * [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)
@@ -2792,6 +2800,10 @@ extern SDL_DECLSPEC SDL_GPUCommandBuffer *SDLCALL SDL_AcquireGPUCommandBuffer(
  *
  * Subsequent draw calls will use this uniform data.
  *
+ * The data being pushed must respect std140 layout conventions. In practical
+ * terms this means you must ensure that vec3 and vec4 fields are 16-byte
+ * aligned.
+ *
  * \param command_buffer a command buffer.
  * \param slot_index the vertex uniform slot to push data to.
  * \param data client data to write.
@@ -2810,6 +2822,10 @@ extern SDL_DECLSPEC void SDLCALL SDL_PushGPUVertexUniformData(
  *
  * Subsequent draw calls will use this uniform data.
  *
+ * The data being pushed must respect std140 layout conventions. In practical
+ * terms this means you must ensure that vec3 and vec4 fields are 16-byte
+ * aligned.
+ *
  * \param command_buffer a command buffer.
  * \param slot_index the fragment uniform slot to push data to.
  * \param data client data to write.
@@ -2827,6 +2843,10 @@ extern SDL_DECLSPEC void SDLCALL SDL_PushGPUFragmentUniformData(
  * Pushes data to a uniform slot on the command buffer.
  *
  * Subsequent draw calls will use this uniform data.
+ *
+ * The data being pushed must respect std140 layout conventions. In practical
+ * terms this means you must ensure that vec3 and vec4 fields are 16-byte
+ * aligned.
  *
  * \param command_buffer a command buffer.
  * \param slot_index the uniform slot to push data to.
